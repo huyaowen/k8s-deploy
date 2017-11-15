@@ -118,7 +118,7 @@ func (this *pvc) ConfirmDetelePvc(ctx context.Context, namespace, pvcName string
 		for {
 			time.Sleep(2 * time.Second)
 
-			if deadline, ok := ctx.Deadline(); ok { //设置了deadl
+			if deadline, ok := ctx.Deadline(); ok { 
 				if time.Now().After(deadline) {
 					break
 				}
@@ -132,11 +132,11 @@ func (this *pvc) ConfirmDetelePvc(ctx context.Context, namespace, pvcName string
 
 	select {
 	case <-ctx.Done():
-		log.Println("删除rc超时：", ctx.Err())
+		log.Println("delete timeout：", ctx.Err())
 		isDelete = false
 		return
 
-	case <-hasDelete: // 已删除
+	case <-hasDelete: 
 
 		isDelete = true
 		close(hasDelete)
@@ -159,7 +159,7 @@ func (this *pvc) Deploy(filePath string) error {
 	os.Chdir(filePath)
 	defer os.Chdir(filePath)
 
-	//此处url为文件路径
+	
 	body = utils.ReadBodyFromFile("pvc.json", filePath)
 
 	var (
