@@ -34,21 +34,20 @@ func (this *configmap) Update(configName, nameSpace string, body []byte) error {
 	return nil
 }
 
-/*
-*	删除需传入url namespace 和configName
- */
+
+
 func (this *configmap) Offline(configName, nameSpace string) (err error) {
 	isExist, err := this.IsExist(configName, nameSpace)
 	if err != nil {
 		return err
 	}
-	if !isExist {
-		return errors.New("该配置不存在")
+	if isExist {
+		_, err = this.c.Delete(fmt.Sprintf(configMapOpt, nameSpace, configName), jsonHeader, nil, nil)
+		if err != nil {
+			return err
+		}
 	}
-	_, err = this.c.Delete(fmt.Sprintf(configMapOpt, nameSpace, configName), jsonHeader, nil, nil)
-	if err != nil {
-		return err
-	}
+	
 	return nil
 }
 
