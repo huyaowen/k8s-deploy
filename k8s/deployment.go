@@ -97,7 +97,7 @@ func (this *deployment) ConfirmDeteleDeploy(ctx context.Context, namespace, depl
 		for {
 			time.Sleep(2 * time.Second)
 
-			if deadline, ok := ctx.Deadline(); ok { //设置了deadl
+			if deadline, ok := ctx.Deadline(); ok { 
 				if time.Now().After(deadline) {
 					break
 				}
@@ -115,7 +115,7 @@ func (this *deployment) ConfirmDeteleDeploy(ctx context.Context, namespace, depl
 		isDelete = false
 		return
 
-	case <-hasDelete: // 已删除
+	case <-hasDelete:
 
 		isDelete = true
 		close(hasDelete)
