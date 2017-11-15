@@ -19,7 +19,7 @@ func rcIns(k8sUrl string) K8s {
 	}
 }
 
-//删除已存在的rc  "/api/v1/namespaces/" + namespace + "/replicationcontrollers/" + name
+
 func (this *rc) Offline(name, namespace string) (err error) {
 
 	var res DeleteRcSuccess
@@ -50,7 +50,7 @@ func (this *rc) Offline(name, namespace string) (err error) {
 	return err
 }
 
-//创建rc  "/api/v1/namespaces/" + namespace + "/replicationcontrollers"
+
 func (this *rc) Upline(nameSpace string, body []byte) (err error) {
 
 	var result CreateRcSuccess
@@ -66,7 +66,7 @@ func (this *rc) Upline(nameSpace string, body []byte) (err error) {
 
 }
 
-// GET /api/v1/namespaces/{namespace}/replicationcontrollers/{name}.
+
 func (this *rc) Single(rcName, nameSpace string) (isExist bool, result interface{}, err error) {
 
 	path := fmt.Sprintf(rcOpt, nameSpace, rcName)
@@ -88,7 +88,7 @@ func (this *rc) ConfirmDetele(ctx context.Context, rcName, nameSpace string) (is
 		for {
 			time.Sleep(2 * time.Second)
 
-			if deadline, ok := ctx.Deadline(); ok { //设置了deadl
+			if deadline, ok := ctx.Deadline(); ok { 
 				if time.Now().After(deadline) {
 					break
 				}
@@ -106,7 +106,7 @@ func (this *rc) ConfirmDetele(ctx context.Context, rcName, nameSpace string) (is
 		isDelete = false
 		return
 
-	case <-hasDelete: // 已删除
+	case <-hasDelete: 
 
 		isDelete = true
 		close(hasDelete)
