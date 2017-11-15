@@ -78,18 +78,17 @@ func (this *ingress) Update(name, nameSpace string, body []byte) (err error) {
 }
 
 func (this *ingress) Deploy(fileUrl string) error {
-	//获取json配置文件
-
+	
 	var model CreateIngStruct
 
 	body, err := getRequest(fileUrl)
 	if err != nil {
-		return errors.New("ing配置文件获取失败:" + err.Error())
+		return errors.New("get ing file fail:" + err.Error())
 	}
 
 	json.Unmarshal(body, &model)
 
-	//获取ing配置文件的name,namespace
+	
 	name, namespace := model.Metadata.Name, model.Metadata.Namespace
 
 	isExist, _, err := this.Single(name, namespace)
