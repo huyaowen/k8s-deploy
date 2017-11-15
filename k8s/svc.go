@@ -17,7 +17,7 @@ func svcIns(k8sUrl string) K8s {
 	}
 }
 
-//删除已存在的svc  "/api/v1/namespaces/" + namespace + "/services/" + name
+
 func (this *svc) Offline(name, namespace string) (err error) {
 
 	var res DeleteSvcSuccess
@@ -42,7 +42,6 @@ func (this *svc) Offline(name, namespace string) (err error) {
 	return err
 }
 
-//创建svc "/api/v1/namespaces/" + namespace + "/services"
 func (this *svc) Upline(nameSpace string, body []byte) (err error) {
 
 	var result CreateSvcSuccess
@@ -56,7 +55,7 @@ func (this *svc) Upline(nameSpace string, body []byte) (err error) {
 	return err
 }
 
-// GET  "/api/v1/namespaces/" + namespace + "/services/" + name
+
 func (this *svc) Single(name, nameSpace string) (isExist bool, result interface{}, err error) {
 
 	path := fmt.Sprintf(svcOpt, nameSpace, name)
@@ -87,11 +86,11 @@ func (this *svc) Deploy(fileUrl string) error {
 
 	body, err := getRequest(fileUrl)
 	if err != nil {
-		return errors.New("svc配置文件获取失败:" + err.Error())
+		return errors.New("get svc file fail:" + err.Error())
 	}
 
 	json.Unmarshal(body, &svc)
-	//获取svc配置文件的name,namespace
+	
 
 	name, namespace := svc.Metadata.Name, svc.Metadata.Namespace
 
